@@ -241,6 +241,19 @@ After completing the implementation:
 - What's the difference between fopen() and open()?
 - Why does the library method make different system calls?
 
+### Analysis Activities Answers
+#1 How many system calls does each method make?
+
+Method 1 makes 3 system calls. These being openat(), read(), and close(). Method 2 makes 4 system calls, which are openat(), read(), close(), and newfstatat().
+
+#2 What's the difference between fopen() and open()?
+
+The difference between these two commands is that while open() is a direct system call that gives you access to a low-level file descriptor, it does not provide buffering, so you would have to manually use read/write operations. On the other hand, fopen() provides buffered I/O and returns a FILE pointer. fopen() also gives you access to functions like fgets() and fprintf(), which makes file handling a lot easier.
+
+#3 Why does the library method make different system calls?
+
+The library method makes different system calls because, with method 2, the addition of the newfstatat() system call, we have access to file metadata such as permissions, type, and size information. This means this method calls functions like fopen, fgets, and fclose, which are higher-level wrappers built on top of system calls and add features like buffering and error checking.
+
 **Commands for Analysis**
 
 ```
